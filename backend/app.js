@@ -1,9 +1,9 @@
 const jsonServer = require('json-server');
-const uuid = require('uuid');
+const uuid = require('node-uuid');
 const crypto = require('crypto');
 const bodyParser = require('body-parser');
 const low = require('lowdb');
-const storage = require('lowdb/lib/storages/file-async');
+const storage = require('lowdb/file-async');
 
 // import jsonServer from 'json-server';
 // import uuid from 'node-uuid';
@@ -36,45 +36,55 @@ const md5 = str => crypto
     .digest('hex');
 
 //添加新问卷
-server.post('/questionnaire/add', (req, res) => {
+server.post('/sheets/add', (req, res) => {
   const item = req.body;
   item.id = uuid.v1();
   item.createDate = new Date().toLocaleDateString();
-  db('questionnaires').push(item).then(() => {
+  db('sheets').push(item).then(() => {
     res.json({'success':true, data:item});
   });
 });
 
 //删除已有问卷
-server.get('/questionnaire/delete/:id', (req, res)=>{
-    db('questionnaires').remove({id: req.params.id}).then(()=>{
+server.get('/sheets/delete/:id', (req, res)=>{
+    db('sheets').remove({id: req.params.id}).then(()=>{
       res.json({'success': true});
     });
 });
 
 //获取所有问卷
-server.get('/questionnaires', (req, res) => {
-  const questionnaires = db('questionnaires');
-  res.json({'success':true, data:questionnaires});
+//获取所有问卷
+server.get('/sheets', (req, res) => {
+  const sheets = db('sheets');
+  res.json({'success':true, data:sheets});
 });
 
 //根据id获取问卷数据
-server.get('/questionnaire/:id', (req, res) => {
-  const questionnaire = db('questionnaires').find({id: req.params.id});
+server.get('/sheets/:id', (req, res) => {
+  const questionnaire = db('sheets').find({id: req.params.id});
   res.json({'success':true, data:questionnaire});
 });
 
 //更新已有问卷
-server.post('/questionnaire/update', (req, res) => {
+server.post('/sheets/update', (req, res) => {
   const item = req.body;
-  db('questionnaires').chain().find({id:item.id}).assign(item).value();
+  db('sheets').chain().find({id:item.id}).assign(item).value();
   res.json({'success':true, data:item});
 });
 
+//更新已有问卷的contents
+server.post('/sheets/:id/updateContent', (req, res) => { 
+  const questionnaire = db('sheets').find({id: req.params.id}).contents;
+  const item = req.body;
+  console.log(questionnaire)
+  // questionnaire.push(item);
+  res.json({'success':true, data:questionnaire});
+});
+
 //发布问卷
-server.post('/questionnaire/updateState', (req, res)=>{
+server.post('/sheets/updateState', (req, res)=>{
   const params = req.body;
-  const item = db('questionnaires').chain().find({id:params.id});
+  const item = db('sheets').chain().find({id:params.id});
   item.assign({state:params.state}).value();
   res.json({'success':true, data:item});
 });

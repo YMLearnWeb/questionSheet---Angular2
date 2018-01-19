@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChange } from '@angular/core';
 
 @Component({
   selector: 'app-sheets',
@@ -8,6 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class SheetsComponent implements OnInit {
 
   constructor() { }
+  type;
+  
+  insertQuestionOn(q){
+    	this.type = q;   	
+    }
 
   ngOnInit() {
   }
