@@ -1,0 +1,14 @@
+.sheet-content {
+	width:100%;
+	display:flex;
+	justify-content: center;
+	& .sidebar {
+		width:30%;
+		padding:15px;
+		
+	}
+	& .panel {
+		width: 70%;
+		padding:15px;
+	}
+}

@@ -1,0 +1,9 @@
+<tabset>
+	<tab heading="components">
+		<ul class="question-type">
+			<li *ngFor ="let question of questions" (click)="insertQuestion(question)">
+				<span id="question-type-{{question.key}}">{{question.name}}</span>
+			</li>
+		</ul>
+	</tab>
+</tabset>

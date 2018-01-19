@@ -1,4 +1,11 @@
-<app-sheet-header></app-sheet-header>
-<p>
-  sheets works!
-</p>
+<div class="sheet-header">
+	<app-sheet-header></app-sheet-header>
+</div>
+<div class="sheet-content">
+	<div class="sidebar">
+		<app-sidebar (insertQuestion_emit)="insertQuestionOn($event)"></app-sidebar>
+	</div>
+	<div class="panel">
+		<app-main [type]="type"></app-main>
+	</div>
+</div>

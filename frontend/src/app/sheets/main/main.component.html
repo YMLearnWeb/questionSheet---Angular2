@@ -1,0 +1,16 @@
+<div class="question-panel">
+	<form class='question-form'>
+		<app-question></app-question>
+		<ul>
+			<li *ngFor="let question of sheet" [ngSwitch]="question.type">
+				<app-textquestion *ngSwitchCase="'1'"></app-textquestion>
+			</li>
+		</ul>
+		<div class="submit-btn center-block">
+			<button type="button" id="question-form-submit" class="btn btn-primary center-block">Submit</button>
+		</div>
+	</form>
+</div>
+   <ul>
+      <li *ngFor="let change of changeLog">{{change}}</li>
+    </ul>
