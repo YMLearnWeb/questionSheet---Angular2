@@ -77,7 +77,7 @@ server.post('/sheets/:id/updateContent', (req, res) => {
   const questionnaire = db('sheets').find({id: req.params.id}).contents;
   const item = req.body;
   console.log(questionnaire)
-  // questionnaire.push(item);
+  questionnaire.push(item);
   res.json({'success':true, data:questionnaire});
 });
 

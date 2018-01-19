@@ -58,7 +58,7 @@ export class SheetService {
   newQuestion(question:QuestionModel,id:string):Observable<any>{
     let body = JSON.stringify(question);
     return this.http.post(url+'sheets/'+id+'/updateContent',body,options)
-                    .map(res =>res.json().data)
+                    .map(res => res.json())
                     .catch(this.handleError)
   }
 }

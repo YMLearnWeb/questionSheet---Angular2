@@ -32,7 +32,7 @@ export class MainComponent implements OnInit {
         "type":changes.type.currentValue,
         "answer":""
       } 
-       this.sheetService.newQuestion(question,"0").subscribe(data=>console.log('data ' +data));
+       this.sheetService.newQuestion(question,"0").subscribe(data=>{console.log(data.data);this.sheet = data.data});
     }
   }
   //get sheetById
